@@ -1,5 +1,6 @@
 import { StyledOnboardingContentContainer } from '@/auth/components/StyledOnboardingContentContainer';
 import { SignInUpWithCredentials } from '@/auth/sign-in-up/components/internal/SignInUpWithCredentials';
+import { SignInUpWithCosmos } from '@/auth/sign-in-up/components/internal/SignInUpWithCosmos';
 import { SignInUpWithGoogle } from '@/auth/sign-in-up/components/internal/SignInUpWithGoogle';
 import { SignInUpWithMicrosoft } from '@/auth/sign-in-up/components/internal/SignInUpWithMicrosoft';
 import { SignInUpWithSSO } from '@/auth/sign-in-up/components/internal/SignInUpWithSSO';
@@ -37,6 +38,7 @@ export const SignInUpWorkspaceScopeForm = () => {
     shouldOfferBypass && shouldUseBypass
       ? {
           ...workspaceAuthBypassProviders,
+          openid: false,
           sso: [],
         }
       : workspaceAuthProviders;
@@ -50,10 +52,13 @@ export const SignInUpWorkspaceScopeForm = () => {
           <SignInUpWithMicrosoft action="join-workspace" />
         )}
 
+        {providers.openid && <SignInUpWithCosmos action="join-workspace" />}
+
         {providers.sso.length > 0 && <SignInUpWithSSO />}
 
         {(providers.google ||
           providers.microsoft ||
+          providers.openid ||
           providers.sso.length > 0) &&
         providers.password ? (
           <HorizontalSeparator />

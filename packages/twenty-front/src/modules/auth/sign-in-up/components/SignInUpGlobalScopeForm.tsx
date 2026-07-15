@@ -11,6 +11,7 @@ import { StyledOnboardingContentContainer } from '@/auth/components/StyledOnboar
 import { OnboardingStepAnimatedItem } from '@/onboarding/components/OnboardingStepAnimatedItem';
 import { ONBOARDING_CONTENT_BLOCK_WIDTH } from '@/onboarding/constants/OnboardingContentBlockWidth';
 import { SignInUpWithCredentials } from '@/auth/sign-in-up/components/internal/SignInUpWithCredentials';
+import { SignInUpWithCosmos } from '@/auth/sign-in-up/components/internal/SignInUpWithCosmos';
 import { SignInUpWithGoogle } from '@/auth/sign-in-up/components/internal/SignInUpWithGoogle';
 import { SignInUpWithMicrosoft } from '@/auth/sign-in-up/components/internal/SignInUpWithMicrosoft';
 import { useHandleResetPassword } from '@/auth/sign-in-up/hooks/useHandleResetPassword';
@@ -251,7 +252,15 @@ export const SignInUpGlobalScopeForm = () => {
               isGlobalScope
             />
           )}
-          {(authProviders.google || authProviders.microsoft) && (
+          {authProviders.openid && (
+            <SignInUpWithCosmos
+              action="list-available-workspaces"
+              isGlobalScope
+            />
+          )}
+          {(authProviders.google ||
+            authProviders.microsoft ||
+            authProviders.openid) && (
             <HorizontalSeparator
               color={themeCssVariables.background.transparent.light}
             />

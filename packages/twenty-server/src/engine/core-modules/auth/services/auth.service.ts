@@ -43,6 +43,7 @@ import { CreateSSOConnectedAccountService } from 'src/engine/core-modules/auth/s
 import { SignInUpService } from 'src/engine/core-modules/auth/services/sign-in-up.service';
 import { type GoogleRequest } from 'src/engine/core-modules/auth/strategies/google.auth.strategy';
 import { type MicrosoftRequest } from 'src/engine/core-modules/auth/strategies/microsoft.auth.strategy';
+import { type OpenidRequest } from 'src/engine/core-modules/auth/strategies/openid.auth.strategy';
 import { AccessTokenService } from 'src/engine/core-modules/auth/token/services/access-token.service';
 import { LoginTokenService } from 'src/engine/core-modules/auth/token/services/login-token.service';
 import { RefreshTokenService } from 'src/engine/core-modules/auth/token/services/refresh-token.service';
@@ -955,8 +956,11 @@ export class AuthService {
       billingCheckoutSessionState,
       locale,
       returnToPath,
-    }: MicrosoftRequest['user'] | GoogleRequest['user'],
-    authProvider: AuthProviderEnum.Google | AuthProviderEnum.Microsoft,
+    }: MicrosoftRequest['user'] | GoogleRequest['user'] | OpenidRequest['user'],
+    authProvider:
+      | AuthProviderEnum.Google
+      | AuthProviderEnum.Microsoft
+      | AuthProviderEnum.OpenId,
   ): Promise<string> {
     const email = rawEmail.toLowerCase();
 
@@ -1091,6 +1095,7 @@ export class AuthService {
     authProvider:
       | AuthProviderEnum.Google
       | AuthProviderEnum.Microsoft
+      | AuthProviderEnum.OpenId
       | AuthProviderEnum.SSO;
     oidcTokenClaims?: Record<string, unknown>;
     connectedAccountProvider?: ConnectedAccountProvider;
@@ -1117,6 +1122,7 @@ export class AuthService {
     authProvider:
       | AuthProviderEnum.Google
       | AuthProviderEnum.Microsoft
+      | AuthProviderEnum.OpenId
       | AuthProviderEnum.SSO,
   ): ConnectedAccountProvider {
     switch (authProvider) {
@@ -1124,6 +1130,8 @@ export class AuthService {
         return ConnectedAccountProvider.GOOGLE;
       case AuthProviderEnum.Microsoft:
         return ConnectedAccountProvider.MICROSOFT;
+      case AuthProviderEnum.OpenId:
+        return ConnectedAccountProvider.OIDC;
       case AuthProviderEnum.SSO:
         return ConnectedAccountProvider.OIDC;
       default:

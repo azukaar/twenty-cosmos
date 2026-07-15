@@ -31,6 +31,7 @@ describe('getAuthProvidersByWorkspace', () => {
         magicLink: false,
         password: true,
         microsoft: true,
+        openid: true,
         sso: [],
       },
     });
@@ -40,6 +41,7 @@ describe('getAuthProvidersByWorkspace', () => {
       magicLink: false,
       password: true,
       microsoft: false,
+      openid: true,
       sso: [
         {
           id: 'sso1',
@@ -61,6 +63,7 @@ describe('getAuthProvidersByWorkspace', () => {
         magicLink: false,
         password: true,
         microsoft: true,
+        openid: true,
         sso: [],
       },
     });
@@ -70,6 +73,7 @@ describe('getAuthProvidersByWorkspace', () => {
       magicLink: false,
       password: true,
       microsoft: false,
+      openid: true,
       sso: [],
     });
   });
@@ -92,6 +96,7 @@ describe('getAuthProvidersByWorkspace', () => {
         magicLink: false,
         password: true,
         microsoft: true,
+        openid: true,
         sso: [],
       },
     });
@@ -101,6 +106,7 @@ describe('getAuthProvidersByWorkspace', () => {
       magicLink: false,
       password: true,
       microsoft: false,
+      openid: true,
       sso: [],
     });
   });
@@ -113,6 +119,7 @@ describe('getAuthProvidersByWorkspace', () => {
         magicLink: false,
         password: true,
         microsoft: true,
+        openid: true,
         sso: [],
       },
     });
@@ -122,6 +129,7 @@ describe('getAuthProvidersByWorkspace', () => {
       magicLink: false,
       password: true,
       microsoft: false,
+      openid: true,
       sso: [
         {
           id: 'sso1',

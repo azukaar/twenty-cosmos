@@ -289,6 +289,45 @@ export class ConfigVariables {
   @ValidateIf((env) => env.AUTH_MICROSOFT_ENABLED)
   AUTH_MICROSOFT_APIS_CALLBACK_URL: string;
 
+  @ConfigVariablesMetadata({
+    group: ConfigVariablesGroup.OPENID_AUTH,
+    description: 'Enable or disable OpenID Connect (Cosmos) authentication',
+    type: ConfigVariableType.BOOLEAN,
+  })
+  @IsOptional()
+  AUTH_OPENID_ENABLED = false;
+
+  @ConfigVariablesMetadata({
+    group: ConfigVariablesGroup.OPENID_AUTH,
+    isSensitive: false,
+    description:
+      'Root URL of the OpenID Connect issuer (used for discovery of .well-known configuration)',
+    type: ConfigVariableType.STRING,
+  })
+  @IsUrl({ require_tld: false, require_protocol: true })
+  @ValidateIf((env) => env.AUTH_OPENID_ENABLED)
+  OPENID_ISSUER: string;
+
+  @ConfigVariablesMetadata({
+    group: ConfigVariablesGroup.OPENID_AUTH,
+    isSensitive: false,
+    description: 'Client ID of the OpenID Connect public client',
+    type: ConfigVariableType.STRING,
+  })
+  @ValidateIf((env) => env.AUTH_OPENID_ENABLED)
+  OPENID_CLIENT_ID: string;
+
+  @ConfigVariablesMetadata({
+    group: ConfigVariablesGroup.OPENID_AUTH,
+    isSensitive: false,
+    description:
+      'Callback URL for OpenID Connect authentication. Optional: defaults to SERVER_URL + /auth/openid/redirect. Override only when the external callback host differs from SERVER_URL.',
+    type: ConfigVariableType.STRING,
+  })
+  @IsUrl({ require_tld: false, require_protocol: true })
+  @IsOptional()
+  AUTH_OPENID_CALLBACK_URL: string;
+
   /**
    * @deprecated Use is now GA - record page layouts are always seeded
    */

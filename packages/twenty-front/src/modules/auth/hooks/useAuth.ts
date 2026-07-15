@@ -589,6 +589,18 @@ export const useAuth = () => {
     [buildRedirectUrl, redirect],
   );
 
+  const handleCosmosLogin = useCallback(
+    (params: {
+      workspacePersonalInviteToken?: string;
+      workspaceInviteHash?: string;
+      billingCheckoutSession?: BillingCheckoutSession;
+      action: string;
+    }) => {
+      redirect(buildRedirectUrl('/auth/openid', params));
+    },
+    [buildRedirectUrl, redirect],
+  );
+
   const handleGetAuthTokensFromOTP = useCallback(
     async (otp: string, loginToken: string, captchaToken?: string) => {
       const getAuthTokensFromOtpResult = await getAuthTokensFromOtp({
@@ -630,6 +642,7 @@ export const useAuth = () => {
     signInWithCredentials: handleCredentialsSignIn,
     signInWithGoogle: handleGoogleLogin,
     signInWithMicrosoft: handleMicrosoftLogin,
+    signInWithCosmos: handleCosmosLogin,
     setAuthTokens: handleSetAuthTokens,
     getAuthTokensFromOTP: handleGetAuthTokensFromOTP,
     navigateAfterMultiWorkspaceSignInUp,
